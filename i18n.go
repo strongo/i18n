@@ -5,6 +5,8 @@ import (
 	"strings"
 )
 
+type TranslatorProvider = func(locale string) SingleLocaleTranslator
+
 // Translator is interface for translate providers
 type Translator interface {
 	Translate(key, locale string, args ...interface{}) string
