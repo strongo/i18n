@@ -4,7 +4,7 @@ import "context"
 
 // TranslationContext is an i18n context (internationalization)
 type TranslationContext interface {
-	GetTranslator(c context.Context) SingleLocaleTranslator
+	GetTranslator(c context.Context) Translator
 	SupportedLocales() LocalesProvider
 	SetLocale(code5 string) error
 }
@@ -16,7 +16,7 @@ type translationContext struct {
 	translatorProvider TranslatorProvider
 }
 
-func (l10n translationContext) GetTranslator(c context.Context) SingleLocaleTranslator {
+func (l10n translationContext) GetTranslator(c context.Context) Translator {
 	return l10n.translatorProvider(l10n.locale.Code5)
 }
 

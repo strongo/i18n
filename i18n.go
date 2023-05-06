@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-type TranslatorProvider = func(locale string) SingleLocaleTranslator
+type TranslatorProvider = func(locale string) Translator
 
 // Translator is interface for translate providers
 type Translator interface {

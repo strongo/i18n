@@ -12,6 +12,8 @@ const (
 	// LocaleCodeEnUK is locale code
 	LocaleCodeEnUK = "en-UK"
 	LocaleCodeUzUZ = "uz-UZ"
+	// LocalCodeUaUa is locale code
+	LocalCodeUaUa = "ua-UA"
 	// LocalCodeRuRu is locale code
 	LocalCodeRuRu = "ru-RU"
 	// LOCALE_ID_ID     = "id-ID"
@@ -54,6 +56,9 @@ var (
 	LocaleEnUS = Locale{Code5: LocaleCodeEnUS, NativeTitle: "English", EnglishTitle: "English", FlagIcon: "🇺🇸"}
 
 	// LocaleEnUK = Locale{Code5: LocaleCodeEnUK, NativeTitle: "English", EnglishTitle: "English", FlagIcon: "🇺🇸"}
+
+	// LocaleUaUa is locale
+	LocaleUaUa = Locale{Code5: LocalCodeRuRu, NativeTitle: "Русский", EnglishTitle: "Russian", FlagIcon: "🇷🇺"}
 
 	// LocaleRuRu is locale
 	LocaleRuRu = Locale{Code5: LocalCodeRuRu, NativeTitle: "Русский", EnglishTitle: "Russian", FlagIcon: "🇷🇺"}
@@ -101,6 +106,7 @@ var (
 var LocalesByCode5 = map[string]Locale{
 	LocaleCodeEnUS: LocaleEnUS,
 	//LocaleCodeEnUK: LocaleEnUK,
+	LocalCodeUaUa: LocaleUaUa,
 	LocalCodeRuRu: LocaleRuRu,
 	// LOCALE_ID_ID: LocaleIdId,
 	LocaleCodeDeDE: LocaleDeDe,
@@ -122,4 +128,24 @@ func GetLocaleByCode5(code5 string) Locale {
 		return locale
 	}
 	panic(fmt.Sprintf("Unknown locale: [%v]", code5))
+}
+
+func NewSupportedLocales(locales []string) LocalesProvider {
+	s := &supported{
+		locales: make(map[string]Locale, len(locales)),
+	}
+	for _, l := range locales {
+		s.locales[l] = GetLocaleByCode5(l)
+	}
+	return &supported{locales: LocalesByCode5}
+}
+
+var _ LocalesProvider = (*supported)(nil)
+
+type supported struct {
+	locales map[string]Locale
+}
+
+func (s supported) GetLocaleByCode5(code5 string) (Locale, error) {
+	return s.locales[code5], nil
 }
