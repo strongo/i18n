@@ -157,7 +157,7 @@ func (s supported) GetLocaleByCode5(code5 string) (Locale, error) {
 		return LocaleUndefined, errors.New("GetLocaleByCode5(code5 string) - code5 is empty string")
 	}
 	for _, locale := range s.locales {
-		if locale.Code5 == code5 {
+		if codeLen := len(code5); codeLen == 5 && locale.Code5 == code5 || codeLen == 2 && locale.Code5[:2] == code5 {
 			return locale, nil
 		}
 	}
