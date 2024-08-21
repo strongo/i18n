@@ -7,7 +7,7 @@ import (
 
 type TranslatorProvider = func(locale string) Translator
 
-// Translator is interface for translate providers
+// Translator provides translations by key and locale
 type Translator interface {
 	Translate(key, locale string, args ...interface{}) string
 	TranslateNoWarning(key, locale string, args ...interface{}) string
@@ -39,8 +39,11 @@ func (t SingleLocaleTranslatorWithBackup) Locale() Locale {
 // Translate translates
 func (t SingleLocaleTranslatorWithBackup) Translate(key string, args ...interface{}) string {
 	result := t.PrimaryTranslator.Translate(key, args...)
-	if result == key {
+	if result == key || result == "" {
 		result = t.BackupTranslator.Translate(key, args...)
+	}
+	if result == "" {
+		result = key + fmt.Sprintf("(args=%+v)", args)
 	}
 	return result
 }
@@ -56,16 +59,17 @@ func (t SingleLocaleTranslatorWithBackup) TranslateNoWarning(key string, args ..
 
 // LocalesProvider provides locale by code
 type LocalesProvider interface {
+	SupportedLocales() []Locale
 	GetLocaleByCode5(code5 string) (Locale, error)
 }
 
 // Locale describes language
 type Locale struct {
 	Code5        string
-	IsRtl        bool
 	NativeTitle  string
 	EnglishTitle string
 	FlagIcon     string
+	IsRtl        bool
 }
 
 // SiteCode returns code for using in website URLs
@@ -77,7 +81,7 @@ func (l Locale) SiteCode() string {
 	return s
 }
 
-// String represent locale information as string
+// String represents locale information as string
 func (l Locale) String() string {
 	return fmt.Sprintf(`Locale{Code5: "%v", IsRtl: %v, NativeTitle: "%v", EnglishTitle: "%v", FlagIcon: "%v"}`, l.Code5, l.IsRtl, l.NativeTitle, l.EnglishTitle, l.FlagIcon)
 }

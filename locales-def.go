@@ -1,6 +1,9 @@
 package i18n
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 // TODO: This module should be in a dedicate package?
 
@@ -49,11 +52,14 @@ const (
 //"6. Italian \xF0\x9F\x87\xAE\xF0\x9F\x87\xB9",
 
 var (
-	// LocaleUndefined is undefined locale
+	// LocaleUndefined is an undefined locale
 	LocaleUndefined = Locale{Code5: LocaleCodeUndefined, NativeTitle: "Undefined", EnglishTitle: "Undefined"}
 
 	// LocaleEnUS is en-US locale
 	LocaleEnUS = Locale{Code5: LocaleCodeEnUS, NativeTitle: "English", EnglishTitle: "English", FlagIcon: "🇺🇸"}
+
+	// LocaleEnUK is en-UK locale
+	LocaleEnUK = Locale{Code5: LocaleCodeEnUK, NativeTitle: "English", EnglishTitle: "English", FlagIcon: "🇬🇧"}
 
 	// LocaleEnUK = Locale{Code5: LocaleCodeEnUK, NativeTitle: "English", EnglishTitle: "English", FlagIcon: "🇺🇸"}
 
@@ -105,10 +111,9 @@ var (
 // LocalesByCode5 map of locales by 5-character code
 var LocalesByCode5 = map[string]Locale{
 	LocaleCodeEnUS: LocaleEnUS,
-	//LocaleCodeEnUK: LocaleEnUK,
-	LocalCodeUaUa: LocaleUaUa,
-	LocalCodeRuRu: LocaleRuRu,
-	// LOCALE_ID_ID: LocaleIdId,
+	LocaleCodeEnUK: LocaleEnUK,
+	LocalCodeUaUa:  LocaleUaUa,
+	LocalCodeRuRu:  LocaleRuRu,
 	LocaleCodeDeDE: LocaleDeDe,
 	LocaleCodeEsES: LocaleEsEs,
 	LocaleCodeFrFR: LocaleFrFr,
@@ -119,6 +124,7 @@ var LocalesByCode5 = map[string]Locale{
 	LocaleCodeFaIR: LocaleFaIr,
 	LocaleCodeKoKO: LocaleKoKo,
 	LocaleCodeJaJP: LocaleJaJp,
+	LocaleCodeUzUZ: LocaleUzUz,
 	LocaleCodeZhCN: LocaleZhCn,
 }
 
@@ -130,22 +136,38 @@ func GetLocaleByCode5(code5 string) Locale {
 	panic(fmt.Sprintf("Unknown locale: [%v]", code5))
 }
 
-func NewSupportedLocales(locales []string) LocalesProvider {
-	s := &supported{
-		locales: make(map[string]Locale, len(locales)),
+func NewSupportedLocales(code5s []string) LocalesProvider {
+	s := supported{
+		locales: make([]Locale, len(code5s)),
 	}
-	for _, l := range locales {
-		s.locales[l] = GetLocaleByCode5(l)
+	for i, code5 := range code5s {
+		s.locales[i] = GetLocaleByCode5(code5)
 	}
-	return &supported{locales: LocalesByCode5}
+	return s
 }
 
 var _ LocalesProvider = (*supported)(nil)
 
 type supported struct {
-	locales map[string]Locale
+	locales []Locale
 }
 
 func (s supported) GetLocaleByCode5(code5 string) (Locale, error) {
-	return s.locales[code5], nil
+	if code5 == "" {
+		return LocaleUndefined, errors.New("GetLocaleByCode5(code5 string) - code5 is empty string")
+	}
+	for _, locale := range s.locales {
+		if locale.Code5 == code5 {
+			return locale, nil
+		}
+	}
+	return LocaleUndefined, errors.New("locale not found by code5: " + code5)
+}
+
+func (s supported) SupportedLocales() []Locale {
+	locales := make([]Locale, 0, len(s.locales))
+	for _, l := range s.locales {
+		locales = append(locales, l)
+	}
+	return locales
 }

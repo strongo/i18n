@@ -12,3 +12,49 @@ func TestLocale_String(t *testing.T) {
 		t.Errorf("Unexpected result of func (Locale) String(). Got: %v. Exepcted: %v", actualLs, expectingLs)
 	}
 }
+
+func TestNewSingleLocaleTranslatorWithBackup(t *testing.T) {
+	type args struct {
+		primary SingleLocaleTranslator
+		backup  SingleLocaleTranslator
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			name: "has_both_primary_and_backup",
+			args: args{
+				primary: NewSingleMapTranslator(LocaleEnUS, NewMapTranslator(nil, map[string]map[string]string{"s1": {"en-US": "United States"}})),
+				backup:  NewSingleMapTranslator(LocaleEnUK, NewMapTranslator(nil, map[string]map[string]string{"s1": {"en-UK": "United Kingdom"}})),
+			},
+			want: "United States",
+		},
+		{
+			name: "has_only_primary",
+			args: args{
+				primary: NewSingleMapTranslator(LocaleEnUS, NewMapTranslator(nil, map[string]map[string]string{"s1": {"en-US": "United States"}})),
+				backup:  NewSingleMapTranslator(LocaleEnUK, NewMapTranslator(nil, map[string]map[string]string{"s2": {"en-UK": "United Kingdom"}})),
+			},
+			want: "United States",
+		},
+		{
+			name: "has_only_backup",
+			args: args{
+				primary: NewSingleMapTranslator(LocaleEnUS, NewMapTranslator(nil, map[string]map[string]string{"s2": {"en-US": "United States"}})),
+				backup:  NewSingleMapTranslator(LocaleEnUK, NewMapTranslator(nil, map[string]map[string]string{"s1": {"en-UK": "United Kingdom"}})),
+			},
+			want: "United Kingdom",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			translator := NewSingleLocaleTranslatorWithBackup(tt.args.primary, tt.args.backup)
+
+			if got := translator.Translate("s1"); got != tt.want {
+				t.Errorf("NewSingleLocaleTranslatorWithBackup().Transalge() = %s, want %s", got, tt.want)
+			}
+		})
+	}
+}
