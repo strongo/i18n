@@ -1,6 +1,7 @@
 package i18n
 
 import (
+	"context"
 	"testing"
 )
 
@@ -18,6 +19,7 @@ func TestNewSingleLocaleTranslatorWithBackup(t *testing.T) {
 		primary SingleLocaleTranslator
 		backup  SingleLocaleTranslator
 	}
+	ctx := context.Background()
 	tests := []struct {
 		name string
 		args args
@@ -26,24 +28,24 @@ func TestNewSingleLocaleTranslatorWithBackup(t *testing.T) {
 		{
 			name: "has_both_primary_and_backup",
 			args: args{
-				primary: NewSingleMapTranslator(LocaleEnUS, NewMapTranslator(nil, map[string]map[string]string{"s1": {"en-US": "United States"}})),
-				backup:  NewSingleMapTranslator(LocaleEnUK, NewMapTranslator(nil, map[string]map[string]string{"s1": {"en-UK": "United Kingdom"}})),
+				primary: NewSingleMapTranslator(LocaleEnUS, NewMapTranslator(ctx, map[string]map[string]string{"s1": {"en-US": "United States"}})),
+				backup:  NewSingleMapTranslator(LocaleEnUK, NewMapTranslator(ctx, map[string]map[string]string{"s1": {"en-UK": "United Kingdom"}})),
 			},
 			want: "United States",
 		},
 		{
 			name: "has_only_primary",
 			args: args{
-				primary: NewSingleMapTranslator(LocaleEnUS, NewMapTranslator(nil, map[string]map[string]string{"s1": {"en-US": "United States"}})),
-				backup:  NewSingleMapTranslator(LocaleEnUK, NewMapTranslator(nil, map[string]map[string]string{"s2": {"en-UK": "United Kingdom"}})),
+				primary: NewSingleMapTranslator(LocaleEnUS, NewMapTranslator(ctx, map[string]map[string]string{"s1": {"en-US": "United States"}})),
+				backup:  NewSingleMapTranslator(LocaleEnUK, NewMapTranslator(ctx, map[string]map[string]string{"s2": {"en-UK": "United Kingdom"}})),
 			},
 			want: "United States",
 		},
 		{
 			name: "has_only_backup",
 			args: args{
-				primary: NewSingleMapTranslator(LocaleEnUS, NewMapTranslator(nil, map[string]map[string]string{"s2": {"en-US": "United States"}})),
-				backup:  NewSingleMapTranslator(LocaleEnUK, NewMapTranslator(nil, map[string]map[string]string{"s1": {"en-UK": "United Kingdom"}})),
+				primary: NewSingleMapTranslator(LocaleEnUS, NewMapTranslator(ctx, map[string]map[string]string{"s2": {"en-US": "United States"}})),
+				backup:  NewSingleMapTranslator(LocaleEnUK, NewMapTranslator(ctx, map[string]map[string]string{"s1": {"en-UK": "United Kingdom"}})),
 			},
 			want: "United Kingdom",
 		},

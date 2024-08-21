@@ -165,9 +165,7 @@ func (s supported) GetLocaleByCode5(code5 string) (Locale, error) {
 }
 
 func (s supported) SupportedLocales() []Locale {
-	locales := make([]Locale, 0, len(s.locales))
-	for _, l := range s.locales {
-		locales = append(locales, l)
-	}
+	locales := make([]Locale, len(s.locales))
+	copy(locales, s.locales)
 	return locales
 }

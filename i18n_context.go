@@ -9,6 +9,10 @@ type TranslationContext interface {
 	SetLocale(code5 string) error
 }
 
+func NewContext(c context.Context, supportedLocales LocalesProvider) TranslationContext {
+	return &translationContext{ctx: c, supportedLocales: supportedLocales}
+}
+
 type translationContext struct {
 	ctx                context.Context
 	supportedLocales   LocalesProvider
@@ -16,19 +20,15 @@ type translationContext struct {
 	translatorProvider TranslatorProvider
 }
 
-func (l10n translationContext) GetTranslator(c context.Context) Translator {
+func (l10n *translationContext) GetTranslator(_ context.Context) Translator {
 	return l10n.translatorProvider(l10n.locale.Code5)
 }
 
-func (l10n translationContext) SupportedLocales() LocalesProvider {
+func (l10n *translationContext) SupportedLocales() LocalesProvider {
 	return l10n.supportedLocales
 }
 
-func NewContext(c context.Context, supportedLocales LocalesProvider) TranslationContext {
-	return translationContext{ctx: c, supportedLocales: supportedLocales}
-}
-
-func (l10n translationContext) SetLocale(code5 string) error {
+func (l10n *translationContext) SetLocale(code5 string) error {
 	locale, err := l10n.supportedLocales.GetLocaleByCode5(code5)
 	if err != nil {
 		errorf(l10n.ctx, "*WebhookContextBase.SetLocate(%v) - %v", code5, err)
