@@ -64,7 +64,7 @@ var (
 	// LocaleEnUK = Locale{Code5: LocaleCodeEnUK, NativeTitle: "English", EnglishTitle: "English", FlagIcon: "🇺🇸"}
 
 	// LocaleUaUa is locale
-	LocaleUaUa = Locale{Code5: LocalCodeRuRu, NativeTitle: "Русский", EnglishTitle: "Russian", FlagIcon: "🇷🇺"}
+	LocaleUaUa = Locale{Code5: LocalCodeUaUa, NativeTitle: "Українська", EnglishTitle: "Ukrainian", FlagIcon: "🇺🇦"}
 
 	// LocaleRuRu is locale
 	LocaleRuRu = Locale{Code5: LocalCodeRuRu, NativeTitle: "Русский", EnglishTitle: "Russian", FlagIcon: "🇷🇺"}
