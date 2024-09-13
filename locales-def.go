@@ -26,6 +26,8 @@ const (
 	// LocaleCodeItIT is locale code
 	LocaleCodeItIT = "it-IT"
 
+	LocaleCodeIdID = "id-ID"
+
 	// LocaleCodeDeDE is locale code
 	LocaleCodeDeDE = "de-DE"
 	// LocaleCodeEsES is locale code
@@ -86,6 +88,8 @@ var (
 	// LocaleItIt is locale
 	LocaleItIt = Locale{Code5: LocaleCodeItIT, NativeTitle: "Italiano", EnglishTitle: "Italian", FlagIcon: "🇮🇹"}
 
+	LocaleIdID = Locale{Code5: LocaleCodeIdID, NativeTitle: "Bahasa Indonesia", EnglishTitle: "Indonesian", FlagIcon: "🇮🇩"}
+
 	// LocalePlPl is locale
 	LocalePlPl = Locale{Code5: LocaleCodePlPL, NativeTitle: "Polszczyzna", EnglishTitle: "Polish", FlagIcon: "🇵🇱"}
 
@@ -122,6 +126,7 @@ var LocalesByCode5 = map[string]Locale{
 	LocaleCodeEsES: LocaleEsEs,
 	LocaleCodeFrFR: LocaleFrFr,
 	LocaleCodeItIT: LocaleItIt,
+	LocaleCodeIdID: LocaleIdID,
 	LocaleCodePlPL: LocalePlPl,
 	LocaleCodePtPT: LocalePtPt,
 	LocaleCodePtBR: LocalePtBr,
