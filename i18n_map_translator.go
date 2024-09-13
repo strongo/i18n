@@ -16,10 +16,10 @@ type mapTranslator struct {
 }
 
 // NewMapTranslator creates new map translator
-func NewMapTranslator(c context.Context, translations map[string]map[string]string) Translator {
+func NewMapTranslator(c context.Context, defaultLocale string, translations map[string]map[string]string) Translator {
 	return mapTranslator{
 		c:                 c,
-		defaultLocale:     "en-US",
+		defaultLocale:     defaultLocale,
 		translations:      translations,
 		templatesByLocale: make(map[string]*template.Template),
 	}
