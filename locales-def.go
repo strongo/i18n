@@ -39,6 +39,8 @@ const (
 	// LocaleCodePtBR is locale code
 	LocaleCodePtBR = "pt-BR"
 
+	LocaleCodeTrTR = "tr-TR"
+
 	// LocaleCodeKoKO is locale code
 	LocaleCodeKoKO = "ko-KO"
 	// LocaleCodeJaJP is locale code
@@ -96,6 +98,8 @@ var (
 	// LocaleFaIr is locale
 	LocaleFaIr = Locale{Code5: LocaleCodeFaIR, IsRtl: true, NativeTitle: "فارسی", EnglishTitle: "Farsi", FlagIcon: "🇮🇷"}
 
+	LocaleTrTr = Locale{Code5: LocaleCodeTrTR, NativeTitle: "Türkçe", EnglishTitle: "Turkish", FlagIcon: "🇹🇷"}
+
 	// LocaleKoKo is locale
 	LocaleKoKo = Locale{Code5: LocaleCodeKoKO, NativeTitle: "한국어/조선말", EnglishTitle: "Korean", FlagIcon: "🇰🇷"}
 
@@ -126,6 +130,7 @@ var LocalesByCode5 = map[string]Locale{
 	LocaleCodeJaJP: LocaleJaJp,
 	LocaleCodeUzUZ: LocaleUzUz,
 	LocaleCodeZhCN: LocaleZhCn,
+	LocaleCodeTrTR: LocaleTrTr,
 }
 
 // GetLocaleByCode5 returns locale by 5-character code
