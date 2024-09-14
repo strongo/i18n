@@ -105,12 +105,12 @@ var (
 	LocaleTrTr = Locale{Code5: LocaleCodeTrTR, NativeTitle: "Türkçe", EnglishTitle: "Turkish", FlagIcon: "🇹🇷"}
 
 	// LocaleKoKo is locale
-	LocaleKoKo = Locale{Code5: LocaleCodeKoKO, NativeTitle: "한국어/조선말", EnglishTitle: "Korean", FlagIcon: "🇰🇷"}
+	LocaleKoKo = Locale{Code5: LocaleCodeKoKO, NativeTitle: "한국어", EnglishTitle: "Korean", FlagIcon: "🇰🇷"}
 
 	// LocaleJaJp is locale
 	LocaleJaJp = Locale{Code5: LocaleCodeJaJP, NativeTitle: "日本語", EnglishTitle: "Japanese", FlagIcon: "🇯🇵"}
 
-	LocaleUzUz = Locale{Code5: LocaleCodeUzUZ, NativeTitle: "oʻzbek tili", EnglishTitle: "Uzbek", FlagIcon: "🇨🇳"}
+	LocaleUzUz = Locale{Code5: LocaleCodeUzUZ, NativeTitle: "Oʻzbek tili", EnglishTitle: "Uzbek", FlagIcon: "🇨🇳"}
 
 	// LocaleZhCn is locale
 	LocaleZhCn = Locale{Code5: LocaleCodeZhCN, NativeTitle: "中文", EnglishTitle: "Chinese", FlagIcon: "🇨🇳"}
