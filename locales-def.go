@@ -15,10 +15,10 @@ const (
 	// LocaleCodeEnUK is locale code
 	LocaleCodeEnUK = "en-UK"
 	LocaleCodeUzUZ = "uz-UZ"
-	// LocalCodeUaUa is locale code
-	LocalCodeUaUa = "ua-UA"
-	// LocalCodeRuRu is locale code
-	LocalCodeRuRu = "ru-RU"
+	// LocaleCodeUaUA is locale code
+	LocaleCodeUaUA = "ua-UA"
+	// LocaleCodeRuRU is locale code
+	LocaleCodeRuRU = "ru-RU"
 	// LOCALE_ID_ID     = "id-ID"
 
 	// LocaleCodeFaIR is locale code
@@ -68,10 +68,10 @@ var (
 	// LocaleEnUK = Locale{Code5: LocaleCodeEnUK, NativeTitle: "English", EnglishTitle: "English", FlagIcon: "🇺🇸"}
 
 	// LocaleUaUa is locale
-	LocaleUaUa = Locale{Code5: LocalCodeUaUa, NativeTitle: "Українська", EnglishTitle: "Ukrainian", FlagIcon: "🇺🇦"}
+	LocaleUaUa = Locale{Code5: LocaleCodeUaUA, NativeTitle: "Українська", EnglishTitle: "Ukrainian", FlagIcon: "🇺🇦"}
 
 	// LocaleRuRu is locale
-	LocaleRuRu = Locale{Code5: LocalCodeRuRu, NativeTitle: "Русский", EnglishTitle: "Russian", FlagIcon: "🇷🇺"}
+	LocaleRuRu = Locale{Code5: LocaleCodeRuRU, NativeTitle: "Русский", EnglishTitle: "Russian", FlagIcon: "🇷🇺"}
 
 	// LocaleIdId is locale
 	//  LocaleIdId = Locale{Code5: LOCALE_ID_ID, NativeTitle: "Indonesian", EnglishTitle: "Indonesian", FlagIcon: ""}
@@ -120,8 +120,8 @@ var (
 var LocalesByCode5 = map[string]Locale{
 	LocaleCodeEnUS: LocaleEnUS,
 	LocaleCodeEnUK: LocaleEnUK,
-	LocalCodeUaUa:  LocaleUaUa,
-	LocalCodeRuRu:  LocaleRuRu,
+	LocaleCodeUaUA: LocaleUaUa,
+	LocaleCodeRuRU: LocaleRuRu,
 	LocaleCodeDeDE: LocaleDeDe,
 	LocaleCodeEsES: LocaleEsEs,
 	LocaleCodeFrFR: LocaleFrFr,
