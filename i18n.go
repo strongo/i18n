@@ -22,10 +22,20 @@ type SingleLocaleTranslator interface {
 	TranslateNoWarning(key string, args ...any) string
 }
 
+var _ SingleLocaleTranslator = (*SingleLocaleTranslatorWithBackup)(nil)
+
 // SingleLocaleTranslatorWithBackup should be implemente by translators to a single language with backup to another one.
 type SingleLocaleTranslatorWithBackup struct {
 	PrimaryTranslator SingleLocaleTranslator
 	BackupTranslator  SingleLocaleTranslator
+}
+
+func (t SingleLocaleTranslatorWithBackup) TranslateWithMap(key string, args map[string]string) string {
+	s := t.PrimaryTranslator.TranslateWithMap(key, args)
+	if s == "" {
+		s = t.BackupTranslator.TranslateWithMap(key, args)
+	}
+	return s
 }
 
 // NewSingleLocaleTranslatorWithBackup creates SingleLocaleTranslatorWithBackup
