@@ -25,7 +25,7 @@ func (l10n *translationContext) GetTranslator(_ context.Context) Translator {
 }
 
 func (l10n *translationContext) SetLocale(code5 string) error {
-	locale, err := l10n.LocalesProvider.GetLocaleByCode5(code5)
+	locale, err := l10n.GetLocaleByCode5(code5)
 	if err != nil {
 		errorf(l10n.ctx, "*WebhookContextBase.SetLocate(%v) - %v", code5, err)
 		return err
