@@ -18,7 +18,7 @@ var (
 	LocaleDeDE = Locale{Code5: LocaleCodeDeDE, NativeTitle: "Deutsch", EnglishTitle: "German", FlagIcon: "🇩🇪"}
 	LocaleEnUK = Locale{Code5: LocaleCodeEnUK, NativeTitle: "English", EnglishTitle: "English", FlagIcon: "🇬🇧"}
 	LocaleEnUS = Locale{Code5: LocaleCodeEnUS, NativeTitle: "English", EnglishTitle: "English", FlagIcon: "🇺🇸"}
-	LocaleEsEE = Locale{Code5: LocaleCodeEsES, NativeTitle: "Español", EnglishTitle: "Spanish", FlagIcon: "🇪🇸"}
+	LocaleEsES = Locale{Code5: LocaleCodeEsES, NativeTitle: "Español", EnglishTitle: "Spanish", FlagIcon: "🇪🇸"}
 	LocaleFaIR = Locale{Code5: LocaleCodeFaIR, IsRtl: true, NativeTitle: "فارسی", EnglishTitle: "Farsi", FlagIcon: "🇮🇷"}
 	LocaleFrFR = Locale{Code5: LocaleCodeFrFR, NativeTitle: "Français", EnglishTitle: "French", FlagIcon: "🇫🇷"}
 	LocaleIdID = Locale{Code5: LocaleCodeIdID, NativeTitle: "Bahasa Indonesia", EnglishTitle: "Indonesian", FlagIcon: "🇮🇩"}
@@ -41,7 +41,7 @@ var LocalesByCode5 = map[string]Locale{
 	LocaleCodeDeDE: LocaleDeDE,
 	LocaleCodeEnUK: LocaleEnUK,
 	LocaleCodeEnUS: LocaleEnUS,
-	LocaleCodeEsES: LocaleEsEE,
+	LocaleCodeEsES: LocaleEsES,
 	LocaleCodeFaIR: LocaleFaIR,
 	LocaleCodeFrFR: LocaleFrFR,
 	LocaleCodeIdID: LocaleIdID,
