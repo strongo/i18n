@@ -4,23 +4,23 @@ package i18n
 const LocaleCodeUndefined = "UNDEFINED"
 
 const (
-	LocaleCodeArEG = "ar-EG"
-	LocaleCodeDeDE = "de-DE"
-	LocaleCodeEnUK = "en-UK"
-	LocaleCodeEnUS = "en-US"
-	LocaleCodeEsES = "es-ES"
-	LocaleCodeFaIR = "fa-IR"
-	LocaleCodeFrFR = "fr-FR"
-	LocaleCodeIdID = "id-ID"
-	LocaleCodeItIT = "it-IT"
-	LocaleCodeJaJP = "ja-JP"
-	LocaleCodeKoKR = "ko-KR"
-	LocaleCodePlPL = "pl-PL"
-	LocaleCodePtBR = "pt-BR"
-	LocaleCodePtPT = "pt-PT"
-	LocaleCodeRuRU = "ru-RU"
-	LocaleCodeTrTR = "tr-TR"
-	LocaleCodeUkUA = "uk-UA"
-	LocaleCodeUzUZ = "uz-UZ"
-	LocaleCodeZhCN = "zh-CN"
+	LocaleCodeArEG = "ar-EG" // Arabic Egypt
+	LocaleCodeDeDE = "de-DE" // German
+	LocaleCodeEnUK = "en-UK" // English UK
+	LocaleCodeEnUS = "en-US" // English US
+	LocaleCodeEsES = "es-ES" // Spanish
+	LocaleCodeFaIR = "fa-IR" // Farsi
+	LocaleCodeFrFR = "fr-FR" // French
+	LocaleCodeIdID = "id-ID" // Indonesian
+	LocaleCodeItIT = "it-IT" // Italian
+	LocaleCodeJaJP = "ja-JP" // Japanese
+	LocaleCodeKoKR = "ko-KR" // Korean
+	LocaleCodePlPL = "pl-PL" // Polish
+	LocaleCodePtBR = "pt-BR" // Portuguese Brazil
+	LocaleCodePtPT = "pt-PT" // Portuguese Portugal
+	LocaleCodeRuRU = "ru-RU" // Russian
+	LocaleCodeTrTR = "tr-TR" // Turkish
+	LocaleCodeUkUA = "uk-UA" // Ukrainian
+	LocaleCodeUzUZ = "uz-UZ" // Uzbek
+	LocaleCodeZhCN = "zh-CN" // Chinese
 )
