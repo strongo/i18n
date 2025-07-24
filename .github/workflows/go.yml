@@ -33,7 +33,7 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          go test -v ./... -coverprofile=coverage.out -covermode=atomic $(go list ./... | grep -v /mock_i18n/)
+          go test -v . -coverprofile=coverage.out -covermode=atomic $(go list .)
 
       - name: Check coverage
         run: |
