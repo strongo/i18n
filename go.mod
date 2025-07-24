@@ -1,3 +1,7 @@
 module github.com/strongo/i18n
 
-go 1.20
+go 1.23
+
+toolchain go1.24.4
+
+require go.uber.org/mock v0.5.2

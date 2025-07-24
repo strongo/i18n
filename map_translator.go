@@ -30,11 +30,6 @@ func NewMapTranslator(c context.Context, defaultLocale string, translations map[
 	}
 }
 
-type theSingleLocaleTranslator struct {
-	locale Locale
-	Translator
-}
-
 func placeMapValues(s string, args map[string]string) string {
 	for k, v := range args {
 		if placeholder := "{" + k + "}"; strings.Contains(s, placeholder) {
@@ -44,33 +39,6 @@ func placeMapValues(s string, args map[string]string) string {
 		}
 	}
 	return s
-}
-
-func (t theSingleLocaleTranslator) TranslateWithMap(key string, args map[string]string) string {
-	var s = t.Translator.Translate(key, t.locale.Code5)
-	return placeMapValues(s, args)
-}
-
-func (t theSingleLocaleTranslator) Translate(key string, args ...any) string {
-	return t.Translator.Translate(key, t.locale.Code5, args...)
-}
-
-func (t theSingleLocaleTranslator) Locale() Locale {
-	return t.locale
-}
-
-func (t theSingleLocaleTranslator) TranslateNoWarning(key string, args ...any) string {
-	return t.Translator.TranslateNoWarning(key, t.locale.Code5, args...)
-}
-
-var _ SingleLocaleTranslator = (*theSingleLocaleTranslator)(nil)
-
-// NewSingleMapTranslator creates new single map translator
-func NewSingleMapTranslator(locale Locale, translator Translator) SingleLocaleTranslator {
-	return theSingleLocaleTranslator{
-		locale:     locale,
-		Translator: translator,
-	}
 }
 
 func (t mapTranslator) _translate(warn bool, key, locale string, args ...any) string {

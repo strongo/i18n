@@ -18,7 +18,7 @@ func warningf(c context.Context, format string, args ...any) {
 
 func errorf(c context.Context, format string, args ...any) {
 	if log != nil {
-		log.Debugf(c, format, args...)
+		log.Errorf(c, format, args...)
 	}
 }
 
