@@ -2,6 +2,7 @@ package i18n
 
 import (
 	"context"
+	"strings"
 	"testing"
 )
 
@@ -330,4 +331,90 @@ func TestMapTranslator_DefaultLocaleNotFound(t *testing.T) {
 		t.Errorf("Expected TranslateNoWarning(%q, %q) to return %q (key itself), got %q",
 			"greeting", "fr-FR", expected, result)
 	}
+}
+
+func TestMapTranslator_TemplatePanics(t *testing.T) {
+	// Test case 1: Template parsing error
+	t.Run("Template parsing error", func(t *testing.T) {
+		// Prepare test data with invalid template syntax
+		ctx := context.Background()
+		defaultLocale := "en-US"
+		translations := map[string]map[string]string{
+			"invalid_template": {
+				// This template has invalid syntax but includes the markers that trigger template parsing:
+				// 1. Contains "}}" - closing template marker
+				// 2. Contains "{{." - opening template marker with dot
+				"en-US": "Hello, {{.Name}} and {{.Invalid}",
+			},
+		}
+
+		// Create translator
+		translator := NewMapTranslator(ctx, defaultLocale, translations).(mapTranslator)
+
+		defer func() {
+			r := recover()
+			if r == nil {
+				t.Error("Expected a panic when parsing an invalid template, but got none")
+				return
+			}
+
+			// Verify the panic message contains expected text
+			panicMsg, ok := r.(string)
+			if !ok {
+				t.Errorf("Expected panic value to be a string, got %T", r)
+				return
+			}
+			if !strings.Contains(panicMsg, "Failed to parse template") {
+				t.Errorf("Expected panic message to contain 'Failed to parse template', got: %s", panicMsg)
+			}
+		}()
+
+		// This should trigger a panic in template parsing
+		// We need to:
+		// 1. Provide exactly one argument (to satisfy len(args) == 1)
+		// 2. Use a template with both "{{." and "}}" to trigger template parsing
+		translator._translate(true, "invalid_template", "en-US", struct{ Name string }{"World"})
+	})
+
+	// Test case 2: Template execution error
+	t.Run("Template execution error", func(t *testing.T) {
+		// Prepare test data with template that will cause execution error
+		ctx := context.Background()
+		defaultLocale := "en-US"
+		translations := map[string]map[string]string{
+			"template_with_error": {
+				// This template has valid syntax but will fail during execution
+				// because it tries to call a method that doesn't exist
+				"en-US": "Hello, {{.Name}} and {{.NonExistentMethod}}!",
+			},
+		}
+
+		// Create translator
+		translator := NewMapTranslator(ctx, defaultLocale, translations).(mapTranslator)
+
+		defer func() {
+			r := recover()
+			if r == nil {
+				t.Error("Expected a panic when executing a template with errors, but got none")
+				return
+			}
+
+			// Verify the panic message contains expected text
+			panicMsg, ok := r.(string)
+			if !ok {
+				t.Errorf("Expected panic value to be a string, got %T", r)
+				return
+			}
+			if !strings.Contains(panicMsg, "Failed to render template") {
+				t.Errorf("Expected panic message to contain 'Failed to render template', got: %s", panicMsg)
+			}
+		}()
+
+		// This should trigger a panic in template execution
+		// We need to:
+		// 1. Provide exactly one argument (to satisfy len(args) == 1)
+		// 2. Use a template with both "{{." and "}}" to trigger template execution
+		// 3. The template must be valid syntax but cause an execution error
+		translator._translate(true, "template_with_error", "en-US", struct{ Name string }{"World"})
+	})
 }
