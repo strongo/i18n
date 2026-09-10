@@ -57,6 +57,11 @@ func (t mapTranslator) _translate(warn bool, key, locale string, args ...any) st
 				}
 				return key
 			}
+		} else {
+			// The requested locale is the default one, so there is nothing to
+			// fall back to: return the key, exactly as the non-default branch
+			// does, instead of the empty string a missing map entry yields.
+			return key
 		}
 	}
 	if len(args) > 0 {

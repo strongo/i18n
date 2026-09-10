@@ -84,7 +84,7 @@ func TestMapTranslator_Translate(t *testing.T) {
 			key:      "nonexistent",
 			locale:   "en-US",
 			args:     []any{},
-			expected: "", // The actual implementation returns an empty string for non-existent keys
+			expected: "nonexistent", // The actual implementation returns an empty string for non-existent keys
 		},
 		{
 			name:     "Template with struct",
@@ -212,7 +212,7 @@ func TestMapTranslator_TranslateNoWarning(t *testing.T) {
 			key:      "nonexistent",
 			locale:   "en-US",
 			args:     []any{},
-			expected: "", // The actual implementation returns an empty string for non-existent keys
+			expected: "nonexistent", // The actual implementation returns an empty string for non-existent keys
 		},
 	}
 
