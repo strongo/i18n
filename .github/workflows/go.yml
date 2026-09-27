@@ -18,6 +18,9 @@ jobs:
     uses: strongo/cicd/.github/workflows/workflow.yml@main
     secrets:
       gh_token: ${{ secrets.GITHUB_TOKEN }}
+    with:
+      code_coverage: true
+      min_test_coverage_percent: 100
 
   coverage:
     name: Test Coverage
@@ -33,15 +36,6 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          go test -v . -coverprofile=coverage.out -covermode=atomic $(go list .)
+          go test -v -coverprofile=coverage.out ./...
+          awk 'NR>1 && $NF==0 {print; bad=1} END{exit bad}' coverage.out
 
-      - name: Check coverage
-        run: |
-          total_coverage=$(go tool cover -func=coverage.out | grep total | awk '{print $3}' | tr -d '%')
-          if (( $(echo "$total_coverage < 100" | bc -l) )); then
-            echo "Test coverage is less than 100%: $total_coverage%"
-            go tool cover -func=coverage.out
-            exit 1
-          else
-            echo "Test coverage is 100%"
-          fi
